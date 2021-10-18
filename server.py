@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import cred
 
 
 chrome_options = webdriver.ChromeOptions()
@@ -15,13 +16,30 @@ product_url = "https://www.sephora.com/product/artist-face-color-highlight-sculp
 
 """Sign in process"""
 driver.get(product_url)
+
 signin_menu = driver.find_element_by_id('account_drop_trigger')
 signin_submenu = driver.find_element_by_xpath('//*[@id="account_drop"]/div[1]/div/div[2]/button[1]')
 LoginChains = webdriver.ActionChains
 LoginChains(driver).move_to_element(signin_menu).click(signin_submenu).perform()
-id_input = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, '//*[@id="signin_username"]')))
-id_input.send_keys('test')
 
+WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, '//*[@id="signin_username"]')))
+id_input = driver.find_element_by_xpath('//*[@id="signin_username"]')
+pw_input = driver.find_element_by_xpath('//*[@id="signin_password"]')
+
+id_input.send_keys(cred.ACCT)
+pw_input.send_keys(cred.PW)
+
+login_button = driver.find_element_by_xpath('//*[@id="modal1Dialog"]/div[1]/form/button').click()
+
+
+"""Check if it's in stock"""
+
+
+
+"""Add to baket"""
+
+
+"""Fill in purchase info"""
 
 
 
