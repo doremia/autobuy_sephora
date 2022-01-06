@@ -20,20 +20,6 @@ driver_path = '../../Downloads/chromedriver'
 driver = webdriver.Chrome(driver_path, chrome_options = chrome_options)
 
 
-skuID = '1972827'
-product_number = 'P421281'
-api_url = f'https://www.sephora.com/api/users/profiles/current/product/{product_number}'
-product_url = 'https://www.sephora.com/product/' \
-    'artist-face-color-highlight-sculpt-blush-powder-P421281?skuId=1972827'
-
-
-"""
-for testing a product that is in stock.
-"""
-#skuID = "1972827"
-#product_url = "https://www.sephora.com/product/artist-face-color-highlight-sculpt-blush-powder-P421281?skuId=1972868"
-
-
 def get_skuID_nmuber(product_url):
 
     return (skuID, product_number)
@@ -62,7 +48,9 @@ def signin():
 
 
 def check_stock(api_url):
-    """Check if the product is in stock. """
+    """Check if the product is in stock. 
+        Return Boolean
+    """
 
     headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'}
     api_res = requests.get(api_url, headers=headers)
@@ -158,6 +146,7 @@ def check_out():
         )
     except:
         print('Credit Card Saved already')
+        
     finally:
         # alternate_xpath = /html/body/div[1]/div[1]/div/div/main/div/div/div[2]/div/div/div[1]/div[13]/button
         place_order_btn = '/html/body/div[1]/div[1]/div/div/main/div/div/div[2]/div/div/div[1]/div[14]/button'
@@ -177,6 +166,20 @@ def send_sms(body):
              from_=cred.FROM,
              to=cred.TO_PHONE
          )
+
+
+skuID = '1972827'
+product_number = 'P421281'
+qty = '1'
+api_url = f'https://www.sephora.com/api/users/profiles/current/product/{product_number}'
+product_url = 'https://www.sephora.com/product/' \
+    'artist-face-color-highlight-sculpt-blush-powder-P421281?skuId=1972827'
+
+"""
+for testing a product that is in stock.
+#skuID = "1972827"
+#product_url = "https://www.sephora.com/product/artist-face-color-highlight-sculpt-blush-powder-P421281?skuId=1972868"
+"""
 
 
 driver.get(product_url)
